@@ -3,16 +3,15 @@ val isTest = false
 val inputLines = input().split("\n\n")
 
 val caloriesPerElf = inputLines.map {
-    it.lines()
-        .map { it.toInt() }
-        .sum()
-}.sorted().reversed()
+    it.lines().sumOf { it.toInt() }
+}.sortedDescending()
 
 println("Top elf")
 caloriesPerElf.first()
 
 println("Top 3 elves")
-caloriesPerElf.take(3)
+caloriesPerElf.take(4)
+
 println("total:")
 caloriesPerElf.take(3).sum()
 
