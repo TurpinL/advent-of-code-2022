@@ -1,41 +1,23 @@
-import kotlin.math.min
-
 val isTest = false
-
-data class PairRange(val min: Int, val max: Int) {
-    fun contains(other: PairRange): Boolean {
-        return this.min <= other.min && this.max >= other.max
-    }
-
-    fun overlap(other: PairRange): Boolean {
-        return this.min in other.min..other.max ||
-                this.max in other.min..other.max ||
-                other.min in this.min..this.max ||
-                other.max in this.min..this.max
-    }
-
-    override fun toString(): String {
-        return "$min to $max"
-    }
-}
 
 val pairs = input().lines().map { line ->
     line.split(',').map { stringRange ->
-        val rawRange = stringRange.split('-')
-        PairRange(rawRange[0].toInt(), rawRange[1].toInt())
+        val rangeValues = stringRange.split('-')
+        rangeValues[0].toInt()..rangeValues[1].toInt()
     }
 }
 
 println("================= Part 1 =================")
 println("Answer:")
 pairs.count {
-    it[0].contains(it[1]) || it[1].contains(it[0])
+    (it[0].contains(it[1].first) && it[0].contains(it[1].last)) ||
+            (it[1].contains(it[0].first) && it[1].contains(it[0].last))
 }
 
 println("================= Part 2 =================")
 println("Answer:")
 pairs.count {
-    it[0].overlap(it[1])
+    it[0].contains(it[1].first) || it[1].contains(it[0].first)
 }
 
 fun input(): String {
